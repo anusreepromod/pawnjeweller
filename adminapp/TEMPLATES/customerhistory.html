@@ -1,0 +1,81 @@
+{% extends "master.html" %}
+{% load static %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+  window.onload=function(){
+      loaddata()
+  }
+   
+</script>
+<div class="div" style="padding-top:50px;" >
+    <div class="row">
+                  
+        <div class="col-lg-12">
+           <div class="iq-card">
+              <div class="iq-card-header d-flex justify-content-between">
+                 <div class="iq-header-title">
+                    <h4 class="card-title">Customer History</h4>
+                 </div>
+              </div>
+              <div class="iq-card-body">
+                 <table class="table table-bordered table-responsive-md table-striped text-center dataTable" id="table">
+                    <thead>
+                       <tr>
+                         <th>Sl.no</th>
+                         <th>Customer Name</th>
+                         <th>Phone Number</th>
+                         <th>Email Id</th>
+                         <th>Date of Birth</th>
+                         <th>City</th>
+                         <th>State</th>
+                         <th>Country</th>
+                         <th>Action</th>
+                       </tr>
+                       <tr>
+                         <!-- <td>Anusree Promod</td>
+                         <td>97311 39900</td>
+                         <td>anu@techtist.com</td>
+                         <td>01/01/2020</td>
+                         <td>Bangalore</td>
+                         <td>Karnataka</td>
+                         <td>India</td>
+                         <td>
+                          <a href="#" class="btn iq-bg-success btn-rounded btn-sm my-0"><i class="fa fa-edit"></i></a>
+                          <a href="#" class="btn iq-bg-danger btn-rounded btn-sm my-0"><i class="fa fa-trash"></i></a>
+                          <a href="#" class="btn iq-bg-success btn-rounded btn-sm my-0"><i class="fa fa-eye"></i></a>
+                         </td> -->
+                       </tr>
+                      
+                      
+                      
+                    </thead>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+</div>
+
+<script>
+  function loaddata(){
+       
+       $.ajax({
+           url:'/adminapp/fnchistory/',
+           type: 'GET',
+           success: function(response){
+               
+               $('.tr').remove()
+               for(i=0;i<response.user.length;i++){
+                   
+                $('#table').append("<tr class='tr'><td>"+response.user[i].id+"</td><td>"+response.user[i].firstname+" "+response.user[i].lastname+"</td><td>"+response.user[i].mobile+"</td><td>"+response.user[i].email+"</td><td>"+response.user[i].dob+"</td><td>"+response.user[i].city+"</td><td>"+response.user[i].state+"</td><td>"+response.user[i].country+"</td><td> <a href='/adminapp/editcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-edit'></i></a> <a href='' onclick='deldata("+response.user[i].id+")' class='btn iq-bg-danger btn-rounded btn-sm my-0'><i class='fa fa-trash'></i></a> <a href='/adminapp/viewcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-eye'></i></a></td></tr>")
+        
+
+               }
+           }
+       })  
+   }
+
+
+</script>
+{% endblock %}
