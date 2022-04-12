@@ -1,6 +1,12 @@
 {% extends "master.html" %}
 {% load static %}
 {% block content %}
+<script>
+   window.onload=function(){
+       
+       loadloan()
+   }
+</script>
 <div class="div" style="padding-top: 90px;" >
     <div class="row">
                   
@@ -12,7 +18,7 @@
                  </div>
               </div>
               <div class="iq-card-body">
-                 <table class="table table-bordered table-responsive-md table-striped text-center dataTable">
+                 <table class="table table-bordered table-responsive-md table-striped text-center dataTable" id="table">
                     <thead>
                        <tr>
                          <th>S.No</th>
@@ -29,66 +35,8 @@
                          <th>Net Amount</th>
                          <th>Maturity Date</th>
                        </tr>
-                       <tr>
-                         <td>1</td>
-                         <td>39900</td>
-                         <td>01/01/2020</td>
-                         <td>Anusree</td>
-                         <td>10%</td>
-                         <td>150gm</td>
-                         <td>550gm</td>
-                         <td>45000</td>
-                         <td>40000</td>
-                         <td>25000</td>
-                         <td>1800</td>
-                         <td>15000</td>
-                         <td>01/01/2020</td>
-                       </tr>
-                       <tr>
-                         <td>2</td>
-                         <td>39900</td>
-                         <td>01/01/2020</td>
-                         <td>Anusree</td>
-                         <td>10%</td>
-                         <td>150gm</td>
-                         <td>550gm</td>
-                         <td>45000</td>
-                         <td>40000</td>
-                         <td>25000</td>
-                         <td>1800</td>
-                         <td>15000</td>
-                         <td>01/01/2020</td>
-                       </tr>
-                       <tr>
-                         <td>3</td>
-                         <td>39900</td>
-                         <td>01/01/2020</td>
-                         <td>Anusree</td>
-                         <td>10%</td>
-                         <td>150gm</td>
-                         <td>550gm</td>
-                         <td>45000</td>
-                         <td>40000</td>
-                         <td>25000</td>
-                         <td>1800</td>
-                         <td>15000</td>
-                         <td>01/01/2020</td>
-                       </tr>
-                       <tr>
-                         <td>4</td>
-                         <td>39900</td>
-                         <td>01/01/2020</td>
-                         <td>Anusree</td>
-                         <td>10%</td>
-                         <td>150gm</td>
-                         <td>550gm</td>
-                         <td>45000</td>
-                         <td>40000</td>
-                         <td>25000</td>
-                         <td>1800</td>
-                         <td>15000</td>
-                         <td>01/01/2020</td>
-                       </tr>
+                       
+                      
                     </thead>
                  </table>
               </div>
@@ -96,4 +44,18 @@
         </div>
      </div>
 </div>
+<script>
+   function loadloan(){ 
+       $.ajax({
+           url:'/adminapp/loadloan/',
+           type: 'GET',
+           success: function(response){
+               $('.tr').remove()
+               for(i=0;i<response.loan.length;i++){
+                $('#table').append("<tr ><td>"+response.loan[i].id+"</td><td>"+response.loan[i].lnum+"</td><td>"+response.loan[i].date+"</td><td>"+response.loan[i].name+"</td><td>"+response.loan[i].interest+"</td><td>"+response.loan[i].gwt+"</td><td>"+response.loan[i].nwt+"</td><td>"+response.loan[i].mvalue+"</td><td>"+response.loan[i].amount+"</td><td>"+response.loan[i].advance+"</td><td>"+response.loan[i].fees+"</td><td>"+response.loan[i].ntamount+"</td><<td>"+response.loan[i].mdate+"</td>/tr>")
+               }
+           }
+       })  
+   }
+</script>
 {% endblock %}

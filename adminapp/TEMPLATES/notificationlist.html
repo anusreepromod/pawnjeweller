@@ -1,4 +1,4 @@
-{% extends "master.html" %}
+{% extends "navbar.html" %}
 {% load static %}
 {% block content %}
 <div class="container-fluid" style="padding-top: 50px;">
@@ -27,7 +27,7 @@
                          </div>
                          <div class="iq-alert-text">{{i.notify}}</div>
                          <div class="iq-alert-icon">
-                            <a href="#"><i class="ri-close-circle-fill"></i></a>
+                            <a href="/adminapp/delnotification/{{i.id}}"><i class="ri-close-circle-fill"></i></a>
                          </div>
                       </div>       
                    </div> 

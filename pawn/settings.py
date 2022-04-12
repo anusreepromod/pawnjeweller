@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from django.core.servers.basehttp import WSGIServer
+WSGIServer.handle_error = lambda *args, **kwargs: None
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,11 +83,18 @@ WSGI_APPLICATION = 'pawn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ddt2jvut353hv1',
-        'USER': 'fkifijnfnlgfzr',
-        'PASSWORD': '97944c7fa20a0dafc2aa94a174ea09965e34342f109399abc580ffd43019acdd',
-        'HOST': 'ec2-34-206-148-196.compute-1.amazonaws.com',
+        'NAME': 'da1dtqtjt3ionu',
+        'USER': 'ebjzyefqkrdoqa',
+        'PASSWORD': '63383d4ff286a0ca2afe5080eccd2244557ebc5f715480fa18aeaa053e77bc8d',
+        'HOST': 'ec2-34-207-12-160.compute-1.amazonaws.com',
         'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'pawn',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '0987',
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
+
     }
 }
 

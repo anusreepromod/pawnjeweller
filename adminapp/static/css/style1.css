@@ -1080,3 +1080,8 @@ Add User Page
 .iq-top-navbar .iq-navbar-custom .iq-menu-bt {
     right: 0px !important;
 }
+
+.tfoot {
+	text-align: left;
+	padding-left: 10px;
+}

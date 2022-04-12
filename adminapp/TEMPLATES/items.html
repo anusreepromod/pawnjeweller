@@ -21,7 +21,7 @@
                             <input type="text" class="form-control" id="item" placeholder="Item Name" required>
                          </div>
                          <div class="form-group col-md-12">
-                            <button type="submit" class="btn btn-primary" onclick="submits()">Submit</button>
+                            <button type="button" class="btn btn-primary" onclick="submits()">Submit</button>
                          </div>
                    </form>
                 </div>
@@ -44,6 +44,7 @@ $.ajax({
         item: $('#item').val()
     },
     success: function(response){
+    
      alert(response.msg)
       location.reload(true)
     }

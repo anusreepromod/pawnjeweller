@@ -1405,5 +1405,9 @@ footer{
 }
 }
 
+.tfoot {
+	text-align: left;
+	padding-left: 10px;
+}
 
 /* .navbar-list .nav-master li>a { padding: 0 15px; line-height: 20px; color: #233c7e !important; display: block; min-height: 30px; } */

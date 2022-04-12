@@ -1,4 +1,4 @@
-{% extends "master.html" %}
+{% extends "navbar.html" %}
 {% load static %}
 {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -8,7 +8,7 @@
   }
    
 </script>
-<div class="div" style="padding-top:50px;" >
+<div class="container-fluid" style="padding-top:50px;" >
     <div class="row">
                   
         <div class="col-lg-12">
@@ -19,6 +19,20 @@
                  </div>
               </div>
               <div class="iq-card-body">
+               <div class="row">
+                  <div class="col-md-3 form-group">
+                     <input type="text" class="form-control" id="search1" placeholder="Customer Name">
+                  </div>
+                  <div class="col-md-3 form-group">
+                     <input type="text" class="form-control" id="search2" placeholder="Mobile Number">
+                  </div>
+                  <div class="form-group col-md-3">
+                     <input type="text" class="form-control" id="search3" placeholder="City Name">
+                  </div>
+                  <div class="form-group" style="margin-top:5px;">
+                    <button type="submit" class="btn btn-md iq-bg-success" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  </div>
+               </div>
                  <table class="table table-bordered table-responsive-md table-striped text-center dataTable" id="table">
                     <thead>
                        <tr>
@@ -68,7 +82,7 @@
                $('.tr').remove()
                for(i=0;i<response.user.length;i++){
                    
-                $('#table').append("<tr class='tr'><td>"+response.user[i].id+"</td><td>"+response.user[i].firstname+" "+response.user[i].lastname+"</td><td>"+response.user[i].mobile+"</td><td>"+response.user[i].email+"</td><td>"+response.user[i].dob+"</td><td>"+response.user[i].city+"</td><td>"+response.user[i].state+"</td><td>"+response.user[i].country+"</td><td> <a href='/adminapp/editcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-edit'></i></a> <a href='' onclick='deldata("+response.user[i].id+")' class='btn iq-bg-danger btn-rounded btn-sm my-0'><i class='fa fa-trash'></i></a> <a href='/adminapp/viewcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-eye'></i></a></td></tr>")
+                $('#table').append("<tr class='tr'><td>"+response.user[i].id+"</td><td>"+response.user[i].firstname+" "+response.user[i].lastname+"</td><td>"+response.user[i].mobile+"</td><td>"+response.user[i].email+"</td><td>"+response.user[i].dob+"</td><td>"+response.user[i].city+"</td><td>"+response.user[i].state+"</td><td>"+response.user[i].country+"</td><td> <a href='/adminapp/editcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-edit'></i></a> <a href='' onclick='delcustomer("+response.user[i].id+")' class='btn iq-bg-danger btn-rounded btn-sm my-0'><i class='fa fa-trash'></i></a> <a href='/adminapp/viewcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-eye'></i></a></td></tr>")
         
 
                }
@@ -76,6 +90,48 @@
        })  
    }
 
+   function delcustomer(id){
+     
+    $.ajaxSetup({
+  headers: { "X-CSRFToken": '{{csrf_token}}' }
+});
+            $.ajax({
+                url:'/adminapp/delcustomer/',
+                type: 'POST',
+                data:{
+                    id:id
+                },
+                success: function(response){
+                    alert(response.msg)
+                    loaddata()
+                }
+            })
+        }
 
+        function search(){
+           
+            $.ajaxSetup({
+  headers: { "X-CSRFToken": '{{csrf_token}}' }
+});
+$.ajax({
+                url:'/adminapp/searchcustomer/',
+                type: 'POST',
+                data:{
+                  search1: $('#search1').val(),
+                  search2: $('#search2').val(),
+                  search3: $('#search3').val()
+                },
+                success: function(response){
+                    
+                    $('.tr').remove()
+                    for(i=0;i<response.user.length;i++){
+                        
+                     $('#table').append("<tr class='tr'><td>"+response.user[i].id+"</td><td>"+response.user[i].firstname+" "+response.user[i].lastname+"</td><td>"+response.user[i].mobile+"</td><td>"+response.user[i].email+"</td><td>"+response.user[i].dob+"</td><td>"+response.user[i].city+"</td><td>"+response.user[i].state+"</td><td>"+response.user[i].country+"</td><td> <a href='/adminapp/editcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-edit'></i></a> <a href='' onclick='delcustomer("+response.user[i].id+")' class='btn iq-bg-danger btn-rounded btn-sm my-0'><i class='fa fa-trash'></i></a> <a href='/adminapp/viewcustomer/"+response.user[i].id+"' class='btn iq-bg-success btn-rounded btn-sm my-0'><i class='fa fa-eye'></i></a></td></tr>")
+             
+
+                    }
+                }
+            }) 
+        }
 </script>
 {% endblock %}
