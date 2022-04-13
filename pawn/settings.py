@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'pawn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'da1dtqtjt3ionu',
-        'USER': 'ebjzyefqkrdoqa',
-        'PASSWORD': '63383d4ff286a0ca2afe5080eccd2244557ebc5f715480fa18aeaa053e77bc8d',
-        'HOST': 'ec2-34-207-12-160.compute-1.amazonaws.com',
+        'NAME': 'd8dnnact8i3ocs',
+        'USER': 'xohnbxfrzyjyby',
+        'PASSWORD': '736cbea261353ccaa155cee620bd8a76aa4c99c66970b9d6379c47b0209dc944',
+        'HOST': 'ec2-3-211-6-217.compute-1.amazonaws.com',
         'PORT': '5432',
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # 'NAME': 'pawn',
