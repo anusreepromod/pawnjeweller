@@ -44,5 +44,8 @@ urlpatterns = [
     path('loadloan/', views.loadloan, name='loadvloan'),
     path('loadloantable/', views.loadloantable, name='loadloantable'),
     path('loaddetails/', views.loaddetails, name='loaddeatils'),
-
+    path('payinterest/', views.payinterests, name='payinterests'),
+    path('suggestcustomername/', views.suggestcustomername,
+         name='suggestcustomername'),
+    path('customerdetails/', views.customerdetails, name='customerdetails'),
 ]

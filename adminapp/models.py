@@ -60,6 +60,7 @@ class loan(models.Model):
     loandate = models.CharField(max_length=50)
     customername = models.CharField(max_length=50)
     customerid = models.ForeignKey(customer, on_delete=models.CASCADE)
+    mobile = models.BigIntegerField()
     qty = models.CharField(max_length=40)
     grossweight = models.CharField(max_length=40)
     netweight = models.CharField(max_length=40)
@@ -84,3 +85,14 @@ class loanitem(models.Model):
     value = models.CharField(max_length=100)
     remarks = models.CharField(max_length=40)
     loanid = models.ForeignKey(loan, on_delete=models.CASCADE)
+
+
+class payinterest(models.Model):
+    loannumber = models.CharField(max_length=40)
+    customerid = models.ForeignKey(customer, on_delete=models.CASCADE)
+    customername = models.CharField(max_length=50)
+    mobile = models.BigIntegerField(max_length=40)
+    intereststartdate = models.CharField(max_length=40)
+    interestcoveredtill = models.CharField(max_length=40)
+    monthsremaining = models.CharField(max_length=30)
+    totalinterestamount = models.CharField(max_length=100)

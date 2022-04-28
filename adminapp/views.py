@@ -555,6 +555,7 @@ def loadvalues(request):
             print(cid)
             cname = request.POST['customername']
             print(cname)
+            mobile = request.POST['mobile']
             qty = request.POST['qty']
             print(qty)
             gwt = request.POST['gwt']
@@ -579,7 +580,7 @@ def loadvalues(request):
             print(mdate)
             pmode = request.POST['pmode']
             print(pmode)
-            loan_obj = loan(loandate=ldate, customername=cname, customerid_id=cid, qty=qty, grossweight=gwt,
+            loan_obj = loan(loandate=ldate, customername=cname, customerid_id=cid, mobile=mobile, qty=qty, grossweight=gwt,
                             netweight=nwt, value=amount, loanamount=lamount, interest=irate, advancepaid=apaid, processingfees=fee,
                             installments=installment, netpayable=npay, maturitydate=mdate, paymentmode=pmode)
             loan_obj.save()
@@ -624,3 +625,53 @@ def loaddetails(request):
     customers = customer.objects.all().count()
     loans = loan.objects.all().count()
     return JsonResponse({'loan': loans, 'customer': customers})
+
+
+def payinterests(request):
+    try:
+        if request.method == 'POST':
+            fname = request.POST['fname']
+            lnum = request.POST['lnum']
+            cid = request.POST['cid']
+            mobile = request.POST['mobile']
+            sfrom = request.POST['sfrom']
+            till = request.POST['till']
+            months = request.POST['months']
+            total = request.POST['total']
+            pay_obj = payinterest(loannumber=lnum, customerid_id=cid, customername=fname, mobile=mobile,
+                                  intereststartdate=sfrom, interestcoveredtill=till, monthsremaining=months, totalinterestamount=total)
+            pay_obj.save()
+            loan_obj = loan.objects.get(customername=fname)
+            loansummary = [{'cname': loan_obj.customername}]
+            return JsonResponse({'msg': "Interest paid successfully", 'loan': loansummary})
+    except Exception as e:
+        print(e)
+    return render(request, 'payinterest.html')
+
+
+def suggestcustomername(request):
+    if 'term' in request.GET:
+        search = request.GET.get('term')
+        qs = loan.objects.filter(Q(customername__icontains=search))[0:10]
+        print(qs)
+        names = list()
+        for name in qs:
+            names.append(name.customername)
+        return JsonResponse(names, safe=False,)
+
+
+def customerdetails(request):
+    try:
+        if request.method == 'POST':
+            fname = request.POST['fname']
+            lnum = request.POST['lnum']
+            print(fname)
+            print(lnum)
+            user = loan.objects.get(Q(customername=fname) and Q(id=lnum))
+
+            user_obj = [{'lnum': user.id, 'cid': user.customerid_id,
+                         'sfrom': user.loandate, 'mobile': user.mobile}]
+            print(user_obj)
+            return JsonResponse({'user': user_obj})
+    except Exception as e:
+        print(e)
